@@ -746,7 +746,13 @@ public class BluetoothLePlugin extends CordovaPlugin {
       dataBuilder.addServiceUuid(new ParcelUuid(uuid));
     }
 
-    dataBuilder.setIncludeDeviceName(obj.optBoolean("includeDeviceName", true));
+    boolean includeDeviceName = obj.optBoolean("includeDeviceName", true);
+    String name = obj.getString("name");
+     if (includeDeviceName && name !== null) {
+        BluetoothAdapter.getDefaultAdapter().setName(name);
+     }
+
+    dataBuilder.setIncludeDeviceName(includeDeviceName);
 
     dataBuilder.setIncludeTxPowerLevel(obj.optBoolean("includeTxPowerLevel", true));
 
